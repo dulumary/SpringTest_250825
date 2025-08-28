@@ -1,0 +1,17 @@
+package com.marondal.springtest.mybatis.repository;
+
+import com.marondal.springtest.mybatis.domain.RealEstate;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+
+@Mapper
+public interface RealEstateRepository {
+
+    // real_estate에 전달받은 id와 일치하는 행 조회
+    public RealEstate selectRealEstate(@Param("id") int id);
+
+    // real_estate 테이블에서 전달받은 월세 보다 낮은 행 조회
+    public List<RealEstate> selectRealEstateListByRentPrice(@Param("rentPrice") int rentPrice);
+}
