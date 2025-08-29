@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
-@RequestMapping("/mybatis/real-estate/select")
+@RequestMapping("/mybatis/real-estate")
 @Controller
 public class RealEstateController {
 
@@ -18,7 +18,7 @@ public class RealEstateController {
     private RealEstateService realEstateService;
 
     @ResponseBody
-    @RequestMapping("/1")
+    @RequestMapping("/select/1")
     public RealEstate realEstate(@RequestParam("id") int id) {
 
         // 전달받은 id와 일치하는 매물 정보 얻어오기
@@ -28,7 +28,7 @@ public class RealEstateController {
     }
 
     @ResponseBody
-    @RequestMapping("/2")
+    @RequestMapping("/select/2")
     public List<RealEstate> realEstateListByRentPrice(@RequestParam("rent") int rentPrice) {
 
         // 전달받은 월세보다 낮은 매물 리스트 얻어오기
@@ -38,7 +38,7 @@ public class RealEstateController {
     }
 
     @ResponseBody
-    @RequestMapping("/3")
+    @RequestMapping("/select/3")
     public List<RealEstate> realEstateListByAreaAndPrice(
             @RequestParam("area") int area
             , @RequestParam("price") int price) {
@@ -48,6 +48,38 @@ public class RealEstateController {
         List<RealEstate> realEstateList = realEstateService.getRealEstateListByAreaAndPrice(area, price);
 
         return realEstateList;
+    }
+
+    @ResponseBody
+    @RequestMapping("/add/1")
+    public String addRealEstate() {
+//        realtorId : 3
+//        address : 푸르지용 리버 303동 1104호
+//        area : 89
+//        type : 매매
+//        price : 100000
+
+        RealEstate realEstate = new RealEstate();
+        realEstate.setRealtorId(3);
+        realEstate.setAddress("푸르지용 리버 303동 1104호");
+        realEstate.setArea(89);
+        realEstate.setType("매매");
+        realEstate.setPrice(100000);
+
+        int count = realEstateService.createRealEstateByObject(realEstate);
+
+        return "실행 결과 : " + count;
+    }
+
+    @RequestMapping("/add/2")
+    public addRealEstateByRealtorId(@RequestParam("realtorId") int realtorId) {
+
+//        address : 썅떼빌리버 오피스텔 814호
+//        area : 45
+//        type : 월세
+//        price : 100000
+//        rentPrice : 120
+
     }
 
 }

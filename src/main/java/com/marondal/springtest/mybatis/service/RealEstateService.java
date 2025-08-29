@@ -38,6 +38,23 @@ public class RealEstateService {
         List<RealEstate> realEstateList = realEstateRepository.selectRealEstateListByAreaAndPrice(area, price);
         return realEstateList;
     }
+
+    public int createRealEstateByObject(RealEstate realEstate) {
+
+        // real_estate 테이블에 한 행을 저장
+        int count = realEstateRepository.insertRealEstateByObject(realEstate);
+        return count;
+    }
+
+    public createRealEstate(
+            int realtorId
+            , String address
+            , int area
+            , String type
+            , int price
+            , int rentPrice) {
+
+    }
     
     
 }
