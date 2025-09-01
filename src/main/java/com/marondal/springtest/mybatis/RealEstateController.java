@@ -71,8 +71,9 @@ public class RealEstateController {
         return "실행 결과 : " + count;
     }
 
+    @ResponseBody
     @RequestMapping("/add/2")
-    public addRealEstateByRealtorId(@RequestParam("realtorId") int realtorId) {
+    public String addRealEstateByRealtorId(@RequestParam("realtorId") int realtorId) {
 
 //        address : 썅떼빌리버 오피스텔 814호
 //        area : 45
@@ -80,6 +81,34 @@ public class RealEstateController {
 //        price : 100000
 //        rentPrice : 120
 
+        int count = realEstateService.createRealEstate(
+                realtorId
+                , "썅떼빌리버 오피스텔 814호"
+                , 45
+                , "월세"
+                , 100000
+                , 120);
+
+        return "실행 결과 : " + count;
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/edit")
+    public String editRealEstate() {
+        // type 전세, price 70000 id가 22
+        int count = realEstateService.updateRealEstate(22, "전세", 70000);
+
+        return "실행 결과 : " + count;
+    }
+
+    @ResponseBody
+    @RequestMapping("/remove")
+    public String removeRealEstate(@RequestParam("id") int id) {
+
+        int count = realEstateService.deleteRealEstate(id);
+
+        return "실행 결과 : " + count;
     }
 
 }

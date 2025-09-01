@@ -46,7 +46,7 @@ public class RealEstateService {
         return count;
     }
 
-    public createRealEstate(
+    public int createRealEstate(
             int realtorId
             , String address
             , int area
@@ -54,7 +54,26 @@ public class RealEstateService {
             , int price
             , int rentPrice) {
 
+        int count = realEstateRepository.insertRealEstate(realtorId, address, area, type, price, rentPrice);
+
+        return count;
     }
+
+    // 전달 받은 id에 대응되는 매물 정보중 type과 price를 전달 받은 값으로 수정
+    public int updateRealEstate(int id, String type, int price) {
+
+        int count = realEstateRepository.updateRealEstate(id, type, price);
+
+        return count;
+    }
+
+
+    public int deleteRealEstate(int id) {
+        int count = realEstateRepository.deleteRealEstate(id);
+
+        return count;
+    }
+
     
     
 }
