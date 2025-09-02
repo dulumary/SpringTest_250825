@@ -24,20 +24,24 @@ public class SellerController {
         int count = sellerService.createSeller(nickname, temperature, profileImage);
 
         return "실행결과 : " + count;
-
     }
 
     @GetMapping("/form")
     public String sellerForm() {
-
         return "mvc/sellerForm";
-
     }
 
     @GetMapping("/info")
-    public String sellerInfo(Model model) {
+    public String sellerInfo(
+            @RequestParam(value="id", required=false) Integer id
+            , Model model) {
 
-        Seller seller = sellerService.getLastSeller();
+        Seller seller = null;
+        if(id != null) {
+            seller = sellerService.getSeller(id);
+        } else {
+            seller = sellerService.getLastSeller();
+        }
         model.addAttribute("seller", seller);
 
         return "mvc/sellerInfo";

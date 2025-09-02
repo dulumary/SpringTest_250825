@@ -13,4 +13,6 @@ public interface SellerRepository {
         , @Param("profileImage") String profileImage);
 
      public Seller selectLastSeller();
+
+     public Seller selectSeller(@Param("id") int id);
 }

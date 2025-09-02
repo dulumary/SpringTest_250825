@@ -34,4 +34,20 @@
             `id` DESC
         LIMIT 1
     </select>
+
+    <select id="selectSeller" parameterType="int"
+    resultType="com.marondal.springtest.mvc.domain.Seller">
+        SELECT
+            `id`
+             , `nickname`
+             , `temperature`
+             , `profile_image`
+             , `created_at`
+             , `updated_at`
+        FROM
+            `seller`
+        WHERE
+            `id` = #{id}
+
+    </select>
 </mapper>
