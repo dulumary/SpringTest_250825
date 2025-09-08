@@ -1,0 +1,18 @@
+#wrap {
+    width:1200px;
+}
+
+.contents > .main-menu {
+    width:200px;
+    background-color:cornflowerblue;
+}
+
+.contents > .main-contents {
+    width:1000px;
+}
+
+.input-label {
+    width:120px;
+    text-align:right;
+    margin-right:10px;
+}
