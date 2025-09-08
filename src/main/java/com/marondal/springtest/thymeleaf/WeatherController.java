@@ -3,13 +3,12 @@ package com.marondal.springtest.thymeleaf;
 import com.marondal.springtest.thymeleaf.domain.Weather;
 import com.marondal.springtest.thymeleaf.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RequestMapping("/thymeleaf/weather")
@@ -34,20 +33,20 @@ public class WeatherController {
         return "thymeleaf/weather/form";
     }
 
-
-    @ResponseBody
     @GetMapping("/add")
-    public String addWeather(
-            @RequestParam("weather") String weather
-            , @RequestParam("date") String date
-            , @RequestParam("temperatures") double temperatures
-            , @RequestParam("precipitation") double precipitation
-            , @RequestParam("microDust") String microDust
-            , @RequestParam("windSpeed") double windSpeed) {
+    public String addWeather(@ModelAttribute Weather weather) {
+//            @RequestParam("weather") String weather
+//            , @DateTimeFormat(pattern="yyyy년 M월 d일") @RequestParam("date") LocalDate date
+//            , @RequestParam("temperatures") double temperatures
+//            , @RequestParam("precipitation") double precipitation
+//            , @RequestParam("microDust") String microDust
+//            , @RequestParam("windSpeed") double windSpeed) {
 
-        int count = weatherService.createWeather(weather, date, temperatures, precipitation, microDust, windSpeed);
+//        int count = weatherService.createWeather(weather, date, temperatures, precipitation, microDust, windSpeed);
 
-        return "날씨 추가 : " + count;
+        int count = weatherService.createWeatherByObject(weather);
+
+        return "redirect:/thymeleaf/weather/list";
     }
 
 }

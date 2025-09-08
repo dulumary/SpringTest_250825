@@ -5,6 +5,7 @@ import com.marondal.springtest.thymeleaf.repository.WeatherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -22,7 +23,7 @@ public class WeatherService {
 
     public int createWeather(
             String weather
-            , String date
+            , LocalDate date
             , double temperatures
             , double precipitation
             , String microDust
@@ -30,6 +31,11 @@ public class WeatherService {
 
         int count = weatherRepository.insertWeather(weather, date, temperatures, precipitation, microDust, windSpeed);
 
+        return count;
+    }
+
+    public int createWeatherByObject(Weather weather) {
+        int count = weatherRepository.insertWeatherByObject(weather);
         return count;
     }
 
