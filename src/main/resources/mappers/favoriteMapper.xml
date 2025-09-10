@@ -17,4 +17,25 @@
         )
     </insert>
 
+    <select id="selectFavoritList"
+    resultType="com.marondal.springtest.ajax.domain.Favorite">
+        SELECT
+            `id`
+            , `name`
+            , `url`
+            , `created_at`
+            , `updated_at`
+        FROM
+            `favorite`
+    </select>
+
+    <select id="selectCountByUrl" parameterType="string" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            `favorite`
+        WHERE
+            `url` = #{url}
+    </select>
+
 </mapper>

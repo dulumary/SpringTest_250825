@@ -1,11 +1,14 @@
 package com.marondal.springtest.ajax;
 
+import com.marondal.springtest.ajax.domain.Favorite;
 import com.marondal.springtest.ajax.service.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RequestMapping("/ajax/favorite")
@@ -21,7 +24,13 @@ public class FavoriteController {
     }
 
     @GetMapping("/list")
-    public String favoriteList() {
+    public String favoriteList(Model model) {
+
+        // 즐겨찾기 목록 얻어오기
+        List<Favorite> favoriteList = favoriteService.getFavoriteList();
+
+        model.addAttribute("favoriteList", favoriteList);
+
         return "ajax/favorite/list";
     }
 
@@ -44,6 +53,19 @@ public class FavoriteController {
             resultMap.put("result", "fail");
         }
         
+        return resultMap;
+    }
+
+    // url 중복 여부 확인 API
+    @ResponseBody
+    @PostMapping("/duplicate-url")
+    public Map<String, Boolean> isDuplicateUrl(@RequestParam("url") String url) {
+
+        Map<String, Boolean> resultMap = new HashMap<>();
+        // 중복 됨   {"isDuplicate":true}
+        // 중복 안됨 {"isDuplicate":false}
+        resultMap.put("isDuplicate", favoriteService.isDuplicateUrl(url));
+
         return resultMap;
     }
 

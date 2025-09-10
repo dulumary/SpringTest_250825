@@ -19,16 +19,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>12</td>
-                    <td>유튜브</td>
-                    <td>https://youtube.com</td>
+                <tr th:each="favorite:${favoriteList}">
+                    <td th:text="${favorite.id}">12</td>
+                    <td th:text="${favorite.name}">유튜브</td>
+                    <td th:text="${favorite.url}">https://youtube.com</td>
                 </tr>
-                <tr>
-                    <td>14</td>
-                    <td>인스타그램</td>
-                    <td>https://instagram.com</td>
-                </tr>
+
             </tbody>
         </table>
     </div>
