@@ -16,4 +16,6 @@ public interface FavoriteRepository {
     public List<Favorite> selectFavoritList();
 
     public int selectCountByUrl(@Param("url") String url);
+
+    public int deleteFavorite(@Param("id") int id);
 }

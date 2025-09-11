@@ -13,12 +13,54 @@
         <label>제목</label>
         <input type="text" class="form-control col-4" id="titleInput">
         <label>주소</label>
-        <input type="text" class="form-control" id="addressInput">
+        <div class="d-flex">
+            <input type="text" class="form-control col-10" id="addressInput">
+            <button type="button" id="duplicateBtn" class="btn btn-success col-2 ml-3">중복확인</button>
+        </div>
+        <div id="duplicateText" class="text-danger small d-none">중복된 url 입니다.</div>
+        <div id="avaliableText" class="text-success small d-none">저장 가능한 url 입니다.</div>
         <button type="button" class="btn btn-success btn-block mt-3" id="addBtn">추가</button>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
+
+        $("#duplicateBtn").on("click", function() {
+            let address = $("#addressInput").val();
+
+            if(address == "") {
+                alert("주소를 입력하세요");
+                return ;
+            }
+
+            if(!address.startsWith("http://") && !address.startsWith("https://")) {
+                alert("주소 형식이 잘못 되었습니다");
+                return ;
+            }
+
+            $.ajax({
+                type:"post"
+                , url:"/ajax/favorite/duplicate-url"
+                , data:{"url":address}
+                , success:function(response) {
+                    // 중복 됨   {"isDuplicate":true}
+                    // 중복 안됨 {"isDuplicate":false}
+                    if(response.isDuplicate) {
+                        $("#duplicateText").removeClass("d-none");
+                        $("#avaliableText").addClass("d-none");
+                    } else {
+                        $("#avaliableText").removeClass("d-none");
+                        $("#duplicateText").addClass("d-none");
+                    }
+
+                }
+                , error:function() {
+                    alert("중복확인 에러!");
+                }
+            });
+
+        });
+
         $("#addBtn").on("click", function() {
             let title = $("#titleInput").val();
             let address = $("#addressInput").val();
