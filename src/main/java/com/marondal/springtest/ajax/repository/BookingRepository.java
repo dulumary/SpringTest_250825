@@ -21,4 +21,8 @@ public interface BookingRepository {
             , @Param("date") LocalDate date
             , @Param("phoneNumber") String phoneNumber
             , @Param("state") String state);
+
+    public Booking selectBooking(
+            @Param("name") String name
+            , @Param("phoneNumber") String phoneNumber);
 }

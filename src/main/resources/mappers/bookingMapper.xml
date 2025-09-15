@@ -51,4 +51,23 @@
         )
     </insert>
 
+    <select id="selectBooking" parameterType="map"
+    resultType="com.marondal.springtest.ajax.domain.Booking">
+        SELECT
+            `id`
+             , `name`
+             , `headcount`
+             , `day`
+             , `date`
+             , `phone_number`
+             , `state`
+             , `created_at`
+             , `updated_at`
+        FROM
+            `booking`
+        WHERE
+            `name` = #{name}
+            AND `phone_number` = #{phoneNumber}
+    </select>
+
 </mapper>

@@ -89,5 +89,30 @@ public class BookingController {
     }
 
 
+    // 이름과 전화번화가 일치하는 예약정보 API
+    @ResponseBody
+    @GetMapping("/search")
+    public Map<String, Object> searchBooking(
+            @RequestParam("name") String name
+            , @RequestParam("phoneNumber") String phoneNumber) {
+        // 일치하는 정보는 하나만 존재한다
+        Booking booking = bookingService.getBooking(name, phoneNumber);
+
+        // 조회결과
+        // 조회 성공 : {"result":"success", "data":{"id": 10,"name": "김인규", "headcount": 2,...}}
+        // 조회 실패 : {"result":"fail"}
+
+        Map<String, Object> resultMap = new HashMap<>();
+
+        if(booking != null) {
+            resultMap.put("result", "success");
+            resultMap.put("data", booking);
+        } else {
+            resultMap.put("result", "fail");
+        }
+        return resultMap;
+    }
+
+
 
 }
